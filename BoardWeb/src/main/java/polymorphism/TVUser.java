@@ -10,9 +10,11 @@ public class TVUser {
 
 		AbstractApplicationContext factory = new GenericXmlApplicationContext("applicationContext.xml");
 
-		TV tv1 = (TV) factory.getBean("tv");
-		TV tv2 = (TV) factory.getBean("tv");
-		TV tv3 = (TV) factory.getBean("tv");
+		TV tv = (TV) factory.getBean("tv");
+		tv.powerOff(); 
+		tv.powerOn(); 
+		tv.volumeUp(); 
+		tv.voulumeDown();
 
 		/*
 		 * tv.powerOff(); tv.powerOn(); tv.volumeUp(); tv.voulumeDown();
