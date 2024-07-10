@@ -3,42 +3,50 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
-	<context:component-scan base-package="polymorphism"></context:component-scan>
-	
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<context:component-scan
+		base-package="com.springbook.biz" />
+
+	<bean id="afterThrowing"
+		class="com.springbook.biz.common.AfterThrowingAdvice" />
+	<bean id="after" class="com.springbook.biz.common.AfterAdvice" />
+
+	<aop:config>
+		<aop:pointcut id="allPointcut"
+			expression="execution(* com.springbook.biz..*Impl.*(..))" />
+
+		<aop:aspect ref="afterThrowing">
+			<aop:after-returning pointcut-ref="allPointcut"
+				method="exceptionLog" />
+		</aop:aspect>
+		
+		<aop:aspect ref="after">
+			<aop:after pointcut-ref="allPointcut" method="finallyLog" />
+		</aop:aspect>
+	</aop:config>
+
+	<!-- <bean id="userService" class="com.springbook.biz.user.impl.UserServiceImpl"> 
+		<property name="userDAO" ref="userDAO"/> </bean> <bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO"/> -->
+
 </beans>
 
-	<!-- <bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="apple" p:price="27000000"> -->
-<!-- 		<property name="speaker" ref="apple"></property>
-		<property name="price" value="1000000"></property> -->
+<!-- <bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="apple" p:price="27000000"> -->
+<!-- <property name="speaker" ref="apple"></property> <property name="price" 
+	value="1000000"></property> -->
 
-<!-- 		<constructor-arg index="0" ref="apple"></constructor-arg>
-		<constructor-arg index="1" value="2700000"></constructor-arg> -->
-	<!-- </bean> -->
-	
-<!-- 	<bean id="sony" class="polymorphism.SonySpeaker" />
-	
-	<bean id="apple" class="polymorphism.AppleSpeaker" />
-	
-	<bean id="collectionBean" class="com.springbook.ioc.injection.CollectionBean">
-		<property name="addressList">
-			<map>
-				<entry>
-					<key><value>고길동</value></key>
-					<value>서울시 강남구 역삼동</value>
-				</entry>
-				<entry>
-					<key><value>마이콜</value></key>
-					<value>서울시 강서구 화곡동</value>
-				</entry>
-			</map>
-		</property>
-	</bean> -->
-	
-	
-	<!--  
-	<bean id="lg" class="polymorphism.LgTV">
-	</bean>
-	-->
+<!-- <constructor-arg index="0" ref="apple"></constructor-arg> <constructor-arg 
+	index="1" value="2700000"></constructor-arg> -->
+<!-- </bean> -->
+
+<!-- <bean id="sony" class="polymorphism.SonySpeaker" /> <bean id="apple" 
+	class="polymorphism.AppleSpeaker" /> <bean id="collectionBean" class="com.springbook.ioc.injection.CollectionBean"> 
+	<property name="addressList"> <map> <entry> <key><value>고길동</value></key> 
+	<value>서울시 강남구 역삼동</value> </entry> <entry> <key><value>마이콜</value></key> 
+	<value>서울시 강서구 화곡동</value> </entry> </map> </property> </bean> -->
+
+
+<!-- <bean id="lg" class="polymorphism.LgTV"> </bean> -->
