@@ -7,29 +7,24 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class BoardServiceClient {
 	public static void main(String[] args) {
-		
-		// 1.Spring ÄÁÅ×ÀÌ³Ê¸¦ ±¸µ¿ÇÑ´Ù
+
 		AbstractApplicationContext container = 
 				new GenericXmlApplicationContext("applicationContext.xml");
-		
-		// 2.Spring ÄÁÅ×ÀÌ³Ê·ÎºÎÅÍ BoardServiceImpl °´Ã¼¸¦ LookupÇÑ´Ù
+
 		BoardService boardService = (BoardService) container.getBean("boardService");
-		
-		
-		// 3.±Û µî·Ï ±â´É Å×½ºÆ®
+
 		BoardVO vo = new BoardVO();
-		vo.setTitle("ÀÓ½Ã Á¦¸ñ");
-		vo.setWriter("È«±æµ¿");
-		vo.setContent("ÀÓ½Ã ³»¿ë........");
+		vo.setTitle("ì„ì‹œì œëª©");
+		vo.setWriter("í™ê¸¸ë™");
+		vo.setContent("ì„ì‹œ ë‚´ìš©........");
 		boardService.insertBoard(vo);
-		
-		// 4.±Û ¸ñ·Ï °Ë»ö ±â´É Å×½ºÆ®
+
 		List<BoardVO> boardList = boardService.getBoardList(vo);
 		for(BoardVO board : boardList) {
 			System.out.println("--->" + board.toString());
 		}
 		
-		// 5.Spring ÄÁÅ×ÀÌ³Ê Á¾·á
+
 		container.close();
 		
 	}

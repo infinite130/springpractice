@@ -13,22 +13,21 @@ import com.springbook.biz.common.JDBCUtil;
 @Repository("userDAO")
 public class UserDAO {
 	
-	//JDBC 관련 변수
+
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	
-	//SQL 명령어들
+
 	private final String USER_GET = "select * from users where id=? and password=?";
 	
-	//CRUD 기능의 메소드 구현
-	//회원 등록
+
 	public UserVO getUser(UserVO vo) {
 		UserVO user = null;
 		
 		
 		try {
-			System.out.println("===> JDBC로 getUser() 기능 처리");
+			System.out.println("===> JDBC getUser() ");
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(USER_GET);
 			stmt.setString(1, vo.getId());

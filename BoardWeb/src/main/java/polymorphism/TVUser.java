@@ -16,25 +16,10 @@ public class TVUser {
 		tv.volumeUp(); 
 		tv.voulumeDown();
 
-		/*
-		 * tv.powerOff(); tv.powerOn(); tv.volumeUp(); tv.voulumeDown();
-		 * 
-		 */
+
 		factory.close();
 
-		/*
-		 * BeanFactory factory = new BeanFactory(); TV tv =
-		 * (TV)factory.getBean(args[0]);
-		 */
-
-		/*
-		 * SamsungTV tv = new SamsungTV(); tv.powerOn(); tv.volumeUp(); tv.volumeDown();
-		 * tv.powerOff();
-		 */
-
-		/*
-		 * tv.powerOff(); tv.powerOn(); tv.volumeUp(); tv.voulumeDown();
-		 */
+	
 
 	}
 

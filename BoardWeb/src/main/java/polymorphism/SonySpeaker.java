@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 public class SonySpeaker implements Speaker{
 	
 	public SonySpeaker() {
-		System.out.println("===> SonySpeakedr  객체 생성");
+		System.out.println("===> SonySpeakedr  ");
 	}
 	
 	
 	public void volumeUp() {
-		System.out.println("SonySpeaker ---- 소리를 올린다 ");
+		System.out.println("SonySpeaker ----  ");
 	}
 	
 	public void volumeDown() {
-		System.out.println("SonySpeaker ---- 소리를 내린다");
+		System.out.println("SonySpeaker ----");
 	}
 	
 

@@ -12,46 +12,33 @@ public class LgTV implements TV{
 	private Speaker speaker;
 	
 	public LgTV() {
-		System.out.println("========> LG TV 객체 생성");
+		System.out.println("========> LG TV ");
 	}
 
 	@Override
 	public void powerOn() {
 		
-		System.out.println("LG TV --- 전원 켠다");
+		System.out.println("LG TV --- ");
 	}
 
 	@Override
 	public void powerOff() {
 		
-		 System.out.println("LG TV --- 전원 끈다"); 
+		 System.out.println("LG TV --- "); 
 	}
 
 	@Override
 	public void volumeUp() {
 		speaker.volumeUp();
-		//System.out.println("LG TV --- 소리 올린다");
 		
 	}
 
 	@Override
 	public void voulumeDown() {
 		speaker.volumeDown();
-		//System.out.println("LG TV --- 소리 내린다");
+		
 	}
 	
 	
-	
-	
-	
-	/*
-	 * public void turnOn() { System.out.println("LG TV --- 전원 켠다"); }
-	 * 
-	 * public void turnOff() { System.out.println("LG TV --- 전원 끈다"); }
-	 * 
-	 * public void soundUp() { System.out.println("LG TV --- 소리 올린다"); }
-	 * 
-	 * public void soundDown() { System.out.println("LG TV --- 소리 내린다"); }
-	 */
-	
+
 }

@@ -9,27 +9,27 @@ public class SamsungTV implements TV{
 	private int price;
 	
 	public SamsungTV() {
-		System.out.println("======> SamsungTV(1) 객체 생성");
+		System.out.println("======> SamsungTV(1) ");
 	}
 
 	public void setSpeaker(Speaker speaker) {
-		System.out.println("====> setSpeaker() 호출");
+		System.out.println("====> setSpeaker()");
 		this.speaker = speaker;
 	}
 
 	public void setPrice(int price) {
-		System.out.println("====> setPrice() 호출");
+		System.out.println("====> setPrice() ");
 		this.price = price;
 	}
 
 	@Override
 	public void powerOn() {
-		System.out.println("SamsungTV  --- 전원 켠다. (가격 : " + price + ")");
+		System.out.println("SamsungTV  ---  " + price + ")");
 	}
 
 	@Override
 	public void powerOff() {
-		System.out.println("SamsungTV --- 전원 끈다");
+		System.out.println("SamsungTV ---");
 	}
 
 	@Override
@@ -45,42 +45,4 @@ public class SamsungTV implements TV{
 	}
 
 	
-	
-	/*
-	 * public SamsungTV(Speaker speaker) {
-	 * System.out.println("======> SamsungTV(2) 객체 생성"); this.speaker = speaker; }
-	 * 
-	 * 
-	 * public SamsungTV(Speaker speaker, int price) {
-	 * System.out.println("======> SamsungTV(3) 객체 생성"); this.speaker = speaker;
-	 * this.price = price; }
-	 * 
-	 * 
-	 * 
-	 * @Override public void powerOn() {
-	 * 
-	 * System.out.println("SamsungTV  --- 전원 켠다. (가격 : " + price + ")"); }
-	 * 
-	 * @Override public void powerOff() { System.out.println("SamsungTV --- 전원 끈다");
-	 * 
-	 * }
-	 * 
-	 * @Override public void volumeUp() { //speaker = new SonySpeaker();
-	 * speaker.volumeUp(); }
-	 * 
-	 * @Override public void voulumeDown() { //speaker = new SonySpeaker();
-	 * speaker.volumeDown();
-	 * 
-	 * }
-	 */
-	
-	/*
-	 * public void powerOn() { System.out.println("SamsungTV  --- 전원 켠다"); }
-	 * 
-	 * public void powerOff() { System.out.println("SamsungTV --- 전원 끈다"); }
-	 * 
-	 * public void volumeUp() { System.out.println("SamsungTV --- 소리 올린다"); }
-	 * 
-	 * public void volumeDown() { System.out.println("SamsungTV -- 소리 내린다"); }
-	 */
 }

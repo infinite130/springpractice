@@ -16,7 +16,7 @@ public class CollectionBeanClient {
 		Map<String,String> addressList = bean.getAddressList();
 		
 		for(String key : addressList.keySet()) {
-			System.out.println(String.format("Å° : %s, °ª : %s",key, addressList.get(key)));
+			System.out.println(String.format("",key, addressList.get(key)));
 		}
 		
 		factory.close();
