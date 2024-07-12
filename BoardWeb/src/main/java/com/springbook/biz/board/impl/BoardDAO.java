@@ -44,7 +44,6 @@ public class BoardDAO {
         }
     }
 
-    // �� ����
     public void updateBoard(BoardVO vo) {
         System.out.println("====> JDBC updateBoard()");
 
@@ -62,9 +61,8 @@ public class BoardDAO {
         }
     }
 
-    // �� ����
     public void deleteBoard(BoardVO vo) {
-        System.out.println("====> JDBC�� deleteBoard() ��� ó��");
+        System.out.println("====> JDBC deleteBoard()");
 
         try {
             conn = JDBCUtil.getConnection();
@@ -78,7 +76,6 @@ public class BoardDAO {
         }
     }
 
-    // �� �� ��ȸ
     public BoardVO getBoard(BoardVO vo) {
         System.out.println("====> JDBC getBoard()");
         BoardVO board = null;
