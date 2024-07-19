@@ -1,4 +1,6 @@
-package com.lib.mapper;
+package com.lbi.mapper;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lbi.mapper.BoardMapper;
 import com.lbi.model.BoardVO;
+import com.lbi.model.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -20,15 +23,16 @@ public class BoardMapperTest {
 	private BoardMapper mapper;
 	
 	@Test
-	public void testModify() {
+	public void testGetListPaging() {
 		
-		BoardVO board = new BoardVO();
-		board.setBno(8);
-		board.setTitle("수정 제목");
-		board.setContent("수정 내용");
+		Criteria cri = new Criteria();
 		
-		int result = mapper.modify(board);
-		Log.info("result : " + result);
+		cri.setPageNum(2);
+		
+		List list = mapper.getListPaging(cri);
+		
+		list.forEach(board -> Log.info("" +  board));
+		
 		
 	}
 

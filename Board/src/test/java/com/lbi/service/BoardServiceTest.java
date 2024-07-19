@@ -1,5 +1,8 @@
 package com.lbi.service;
 
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lbi.model.BoardVO;
+import com.lbi.model.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -20,15 +24,14 @@ public class BoardServiceTest {
 	private BoardService service;
 	
 	@Test
-	public void testModif() {
+	public void testGetListPaging() {
 		
-		BoardVO board = new BoardVO();
-		board.setBno(8);
-		board.setTitle("수정 제목");
-		board.setContent("수정 내용");
+		Criteria cri = new Criteria();
 		
-		int result = service.modify(board);
-		log.info("result : " + result);
+		List list = service.getListPaging(cri);
+		
+		list.forEach(board -> log.info("" +  board));
+		
 		
 	}
 }
