@@ -1,0 +1,247 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ul {
+    list-style: none;
+}
+
+/* 화면 전체 랩 */
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e9ecef;
+}
+
+/* content 랩 */
+.wrap {
+    width: 1080px;
+    padding: 40px;
+    background: #ffffff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+/* 홈페이지 기능 네비 */ 
+.top_gnb_area {
+    width: 100%;
+    height: 50px;
+    background-color: #f0f0f1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.top_gnb_area .list {
+    display: flex;
+    padding-right: 20px;
+}
+.top_gnb_area .list li {
+    padding: 0 15px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+/* 관리자 페이지 상단 현페이지 정보 */
+.admin_top_wrap {
+    height: 110px;
+    line-height: 110px;
+    background-color: #5080bd;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+/* 관리자 wrap(네비+컨텐츠) */
+.admin_wrap {
+    display: flex;
+    width: 100%;
+}
+
+/* 관리자 페이지 네비 영역 */
+.admin_navi_wrap {
+    width: 20%;
+    height: 100%;
+}
+.admin_navi_wrap li {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ececec;
+}
+.admin_navi_wrap li a {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    line-height: 80px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+}
+.admin_navi_wrap li a:hover {
+    background-color: #f0f0f0;
+}
+.admin_list_03 {
+    background-color: #c8c8c8;
+} 
+
+/* 관리자 페이지 컨텐츠 영역 */
+.admin_content_wrap {
+    width: 80%;
+    min-height: 700px;
+}
+
+/* 관리자 컨텐츠 제목 영역 */
+.admin_content_subject {	
+    font-size: 30px;
+    font-weight: bolder;
+    padding-left: 15px;
+    background-color: #6AAFE6;
+    height: 80px;
+    line-height: 80px;
+    color: white;	
+}
+
+/* 관리자 컨텐츠 메인 영역 */
+.form_section {
+    width: 95%;
+    margin: 20px auto;
+    border: 1px solid #dbdde2;
+    background-color: #efefef;	
+    border-radius: 10px;
+}
+.form_section_title {
+    padding: 20px 35px;	
+    background-color: #f8f9fa;
+    border-radius: 10px 10px 0 0;
+}
+.form_section_title label {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+}
+.form_section_content {
+    padding: 20px 35px;
+    border-top: 1px solid #dbdde2;	
+}
+.form_section_content input,
+.form_section_content select {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* 입력란 공란 경고 태그 */
+.form_section_content span {	
+    display: none;
+    padding-top: 10px;
+    text-align: center;
+    color: #e05757;
+    font-weight: 300;    
+}
+
+/* 버튼 영역 */
+.btn_section {
+    text-align: center;
+    margin: 40px 0;
+}
+.btn {
+    min-width: 180px;
+    padding: 10px 30px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.enroll_btn {
+    background-color: #dbdde2;
+    margin-left: 15px;
+}
+.enroll_btn:hover {
+    background-color: #ced4da;
+}
+
+/* footer nav 영역 */
+.footer_nav {
+    width: 100%;
+    height: 50px;
+    background-color: #8EC0E4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer_nav_container {
+    display: flex;
+}
+.footer_nav_container ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer_nav_container ul li {
+    padding: 0 10px;
+    font-weight: bold;
+    font-family: dotum;
+}
+
+/* footer 영역 */
+.footer {
+    width: 100%;
+    height: 130px;
+    background-color: #D4DFE6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.footer_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1080px;
+}
+.footer_left img {
+    width: 150px;
+    height: auto;
+}
+.footer_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.footer_right span {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* float 속성 해제 */
+.clearfix {
+    clear: both;
+}
