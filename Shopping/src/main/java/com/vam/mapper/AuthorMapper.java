@@ -16,4 +16,6 @@ public interface AuthorMapper {
 	public AuthorVO authorGetDetail(int authorId);
 	
 	public int authorModify(AuthorVO author);
+	
+	public int authorDelete(int authorId);
 }

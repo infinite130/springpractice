@@ -86,7 +86,7 @@ ul{
 .admin_navi_wrap li a:active {color: black;}
 .admin_navi_wrap li a:hover {color: black;}
 
-.admin_list_01{
+.admin_list_04{
     background-color: #c8c8c8;
 } 
 
@@ -95,9 +95,10 @@ ul{
 .admin_content_wrap{
     width: 80%;
     float:left;
-    min-height:700px;  
+    min-height:700px;
 }
-.admin_content_subject{			/* 관리자 컨텐츠 제목 영역 */
+/* 관리자 컨텐츠 제목 영역 */
+.admin_content_subject{	
     font-size: 40px;
     font-weight: bolder;
     padding-left: 15px;
@@ -132,72 +133,19 @@ ul{
     font-size: 20px;
     padding: 5px 1%;
 }
+.form_section_content textarea{
+    width: 98%;
+    height: 170px;
+    font-size: 20px;	
+}
 .form_section_content select{
 	width: 98%;
     height: 35px;
     font-size: 20px;
     text-align-last: center;
 }
-
-.ck-content {						/* ckeditor 높이 */
-    height: 170px;
-}
-
-
-.ui-datepicker-trigger {			/* 캘린더 css 설정 */
-    margin-left: 25px;
-    width: 14%;
-    height: 38px;
-    font-weight: 600;
-    background-color: #dfe8f5;
-    font-size: 15px;
-    cursor:pointer;
-}
-input[name='publeYear'] {
-    width: 80%;
-    text-align: center;
-}
-
-.authorId_btn {						/* 작가 선택 css 설정 */
-    margin-left: 20px;
-    width: 14%;
-    height: 38px;
-    font-weight: 600;
-    background-color: #dfe8f5;
-    font-size: 15px;
-    cursor:pointer;
-}
-#authorName_input {
-    width: 80%;
-    text-align: center;
-}
-
-.form_section_content select {		/* 카테고리 css 설정 */
-    width: 92%;
-    height: 35px;
-    font-size: 20px;
-    text-align-last: center;
-    margin-left: 5px;
-}
-.cate_wrap span {
-    font-weight: 600;
-}
-.cate_wrap:not(:first-child) {
-    margin-top: 20px;
-}
-
-.ck_warn{						/* 입력란 공란 경고 태그 */
-	display: none;
-    padding-top: 10px;
-    text-align: center;
-    color: #e05757;
-    font-weight: 300;    
-}
-
-.step_val{						/* 할인 가격 문구 */
-	display: block;
-    padding-top: 5px;
-    font-weight: 500;
+.input_block{
+	background-color:#f9f9f9;	
 }
 
 
@@ -213,13 +161,12 @@ input[name='publeYear'] {
     font-weight: 600;
     line-height: 40px;
 }
-.enroll_btn{
-	background-color: #dbdde2;
+.modify_btn{
+	background-color: #b8d3e8;
 	margin-left:15px;
 }
-#enrollBtn:hover {
-    background-color: #c9cbd0;
-}
+
+
 
 
 /* footer navai 영역 */
