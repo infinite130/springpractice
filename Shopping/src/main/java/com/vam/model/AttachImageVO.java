@@ -1,5 +1,8 @@
 package com.vam.model;
 
+import lombok.Data;
+
+@Data
 public class AttachImageVO {
 
 	/* 경로 */
