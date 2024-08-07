@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.sml.mapper.CommunityMapper">
+  
+  	<insert id="communityEnroll">
+  		INSERT INTO COMMUNITY(COMM_TITLE, COMM_CONTENT, COMM_WRITER) VALUES (
+  			#{commTitle},
+  			#{commContent},
+  			#{commWriter.memCode}
+  		)
+  	</insert>
+
+  	<select id="getBoardList" resultType="com.sml.model.CommunityVO">
+  		<![CDATA[
+  			SELECT * FROM (
+  				SELECT /*+INDEX_DESC(COMMUNITY COMM_CODE) */
+  					ROWNUM AS rn, c.COMM_CODE AS commCode, c.COMM_TITLE AS commTitle, m.MEM_NAME AS commWriter, c.COMM_ENROLL_DATE AS enrollDate, c.COMM_COUNT AS commCount
+  				FROM COMMUNITY c
+  				JOIN TB_MEMBER m
+  					ON c.COMM_WRITER = m.MEM_CODE
+  				WHERE c.COMM_STATUS = 'N'
+  				AND
+  		]]>
+  			<if test="keyword != null">
+                COMM_TITLE like '%'||#{keyword}||'%' AND
+            </if>
+        <![CDATA[
+        		ROWNUM <= #{pageNum}*#{amount}
+            	)
+        	WHERE rn > (#{pageNum} - 1) * #{amount}
+        	
+        ]]>
+  	</select>
+  	<select id="communityGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM COMMUNITY
+  		<if test="keyword != null">
+  			WHERE COMM_CODE LIKE '%' || #{keyword} || '%'
+  		</if>
+  	</select>
+  	
+  	<select id="communityDetail" resultType="com.sml.model.CommunityVO">
+  		SELECT 
+  			c.COMM_CODE AS commCode,
+  			c.COMM_TITLE AS commTitle,
+  			m.MEM_NAME as commWriter,
+  			c.COMM_CONTENT AS commContent,
+  			c.COMM_ENROLL_DATE AS enrollDate,
+  			c.COMM_MODIFY_DATE AS modifyDate
+  		 FROM COMMUNITY c
+  		 JOIN TB_MEMBER m
+  		 	ON c.COMM_WRITER = m.MEM_CODE
+  		 WHERE COMM_CODE = #{commCode}
+  	</select>
+  	
+  	<update id="communityModify">
+  		UPDATE COMMUNITY 
+  			SET
+  				COMM_TITLE = #{commTitle},
+  				COMM_CONTENT = #{commContent},
+  				COMM_MODIFY_DATE = CURRENT_DATE, 
+  			WHERE 
+  				COMM_CODE = #{commCode}
+  	</update>
+  	
+  	<update id="communityDelete">
+  		UPDATE COMMUNITY
+  			SET 
+  				COMM_STATUS = 'N',
+  				COMM_MODIFY_DATE = CURRENT DATE
+  			WHERE 
+  				COMM_CODE = #{commCode}
+  	</update>
+  	
+  </mapper>

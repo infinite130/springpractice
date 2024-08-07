@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+.notice-container {
+	margin: 6%;
+	padding: 6%;
+}
+
+.notice-search {
+	margin: 0 auto;
+	margin-bottom: 50px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	text-align: center;
+}
+
+.notice-container h1 {
+	color: #6BAE73;
+}
+
+.notice-container .search-box {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.notice-container .search-box select, .search-box input {
+	margin: 0 5px;
+	padding: 5px 50px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.notice-container .search-box button {
+	margin: 0 5px;
+	padding: 5px 50px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #6BAE7390;
+}
+
+.notice-container .category {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.notice-container .category select {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px 40px;
+	margin-bottom: 15px;
+}
+
+.notice-container table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.notice-container table, th, td {
+	border: 1px solid #ccc;
+}
+
+.notice-container th, td {
+	padding: 10px;
+	text-align: center;
+}
+
+.notice-container th {
+	background-color: #f1f1f1;
+}
+
+.notice-container .button-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.notice-container .button-container button {
+	padding: 10px 40px;
+	margin: 0 5px;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	background-color: #6BAE73;
+	color: white;
+	cursor: pointer;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+ .pagination button {
+	border-radius: 10px;
+	margin: 0 5px;
+	padding: 10px 15px;
+	border: none;
+	background-color: #e0e0e0;
+	cursor: pointer;
+}
+
+.pagination button.active {
+	background-color: #4caf50;
+	color: white;
+}
+
+ .pagination button:hover {
+	background-color: #45a049;
+	color: white;
+}

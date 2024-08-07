@@ -1,0 +1,431 @@
+@charset "UTF-8";
+
+/* 전체 기본 폰트 설정 */
+@font-face {
+	font-family: 'WAGURITTF';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403@1.0/WAGURITTF.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* 헤더(네비게이션) 영역 */
+header {
+	font-family: 'WAGURITTF';
+	width: 100%;
+	height: 180px;
+	background-color: #f8f8f8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed; /* 위치 고정 */
+	top: 0; /* 화면 상단에 위치 */
+	z-index: 700;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-bottom: 10px solid #01530c;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+.container {
+	width: 95%;
+	max-width: 1920px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative; /* 상대적 위치 설정 (모바일 메뉴 조정용) */
+}
+
+.left-menu {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo {
+	width: 180px;
+	height: auto;
+}
+
+.main-menu {
+	display: inline-block;
+	align-items: center;
+	justify-items: center;
+	margin-left: 60px;
+}
+
+.main-menu ul, .auth-menu ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.main-menu li {
+	margin-right: 50px;
+}
+
+.auth-menu li {
+	margin-left: 20px;
+}
+
+
+.main-menu a, .auth-menu a, .mobile-menu a {
+	color: #01530c;
+	font-size: 1.5em;
+}
+
+.main-menu li a:hover, .auth-menu li a:hover, .mobile-menu li a:hover {
+	color: #ec7c00;
+}
+
+.welcome {
+	align-items: center;
+}
+
+.hamburger-container {
+	position: relative;
+}
+
+.hamburger {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 80px; /* 폰트 크기 설정 (햄버거 아이콘 크기) */
+	cursor: pointer; /* 클릭 가능한 커서 설정 */
+	margin-left: 20px;
+	color: #01530c;
+}
+
+.mobile-menu {
+	display: none;
+	position: absolute;
+	text-align : center;
+	top: calc(100% + 5px); /* 버튼 아래에 약간의 여백 추가 */
+	right: 0; /* 버튼 오른쪽 끝에 위치 */
+	width: 180px;
+	background-color: #f8f8f8;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	z-index: 900;
+	border: 1px solid #ddd;
+}
+
+.mobile-menu ul {
+	list-style: none;
+	padding: 20px;
+	margin: 0;
+}
+
+.mobile-menu li {
+	margin-bottom: 10px;
+}
+
+/* 화면 너비가 1400px 이하일 때, 네비게이션 메뉴 비활성화, 햄버거 버튼 및 메뉴 팝업 활성화 */
+@media ( max-width : 1400px) {
+	.main-menu, .auth-menu {
+		display: none; /* 메인 메뉴와 인증 메뉴 숨기기 */
+	}
+	.hamburger {
+		display: block; /* 햄버거 버튼 표시 */
+	}
+}
+
+.main-container {
+	position: relative; /* 상대적 위치 설정 */
+	height: 100vh; /* 전체 뷰포트 높이 */
+	margin-top: 190px; /* 헤더 높이만큼 여백 추가 */
+	background-image: url('/resources/images/mainPage.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden; /* 컨테이너의 오버플로우 방지 */
+}
+
+.main-container::before {
+	content: ""; /* 가상 요소에 내용 없음 */
+	position: absolute; /* 절대 위치 설정 */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5); /* 50% 투명도의 검정색 오버레이 */
+	pointer-events: none; /* 오버레이 아래의 요소와 상호작용 가능 */
+	z-index: 1; /* 텍스트 위에 위치하도록 설정 */
+}
+
+.main-text {
+	position: relative; /* 오버레이 위에 위치하도록 설정 */
+	z-index: 2;
+	color: white; /* 흰색 텍스트 색상 */
+	font-size: 3em;
+	text-align: center; /* 텍스트 수평 중앙 정렬 */
+	line-height: 1.2; /* 텍스트 가독성을 위한 줄 높이 조정 */
+}
+
+/* 퀵 메뉴 */
+#quick-menu {
+	position: fixed;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	z-index: 50;
+}
+
+#quick-menu button {
+	padding: 10px;
+	font-size: 32px;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+#quick-menu button:last-child {
+	border-bottom: none;
+}
+
+#quick-menu button:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 페이지 본문 전체 영역 */
+main {
+	margin: 0;
+	width: 80%;
+	max-width: 1240px;
+	margin: 0 auto;
+	margin-top: 190px;
+	padding: 50px 0;
+	flex: 1;
+	min-height: 560px;
+	width: 80%;
+}
+
+/* 채팅상담창 영역 */
+#chat-container {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 300px;
+	height: 300px; /* 기본 높이 설정 */
+	min-width: 300px; /* 최소 너비 설정 */
+	min-height: 200px; /* 최소 높이 설정 */
+	background-color: white;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	z-index: 900;
+	resize: both; /* 상하좌우 리사이즈 가능하게 설정 */
+	overflow: hidden; /* 리사이즈 크기에 맞게 스크롤을 숨김 */
+}
+
+#chat-container.hidden {
+	display: none;
+}
+
+#chat-header {
+	background-color: #004000;
+	color: white;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: move; /* 드래그할 수 있게 커서 변경 */
+}
+
+#chat-box {
+	flex: 1;
+	padding: 10px;
+	overflow-y: auto;
+	border-bottom: 1px solid #ccc;
+}
+
+#chat-input {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: white;
+	border-top: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+#message-input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-right: 10px;
+}
+
+#chat-container button {
+	padding: 10px;
+	border: none;
+	background-color: #004000;
+	color: white;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+#chat-container button:hover {
+	background-color: #008000;
+}
+
+/* 채팅창 종료 경고창 */
+.modal {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: white;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	z-index: 1000;
+}
+
+.modal-content {
+	padding: 20px;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+#close-chat-modal {
+	position: fixed;
+	z-index: 1000;
+	width: 300px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#close-chat-modal .modal-content {
+	padding: 20px;
+	text-align: center;
+}
+
+#close-chat-modal .modal-content button {
+	margin: 10px;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 10px;
+	border: 1px solid #008000;
+	background-color: #fff;
+	color: #008000;
+	border-radius: 10px;
+}
+
+#close-chat-modal .modal-content button:hover {
+	background-color: #008000;
+	color: white;
+	border-radius: 10px;
+}
+
+/* Footer area */
+/* Footer overall style */
+footer {
+	background-color: #edeff1;
+	padding: 15px 0 0 0;
+}
+
+/* Footer container style */
+.footer-container {
+	display: flex; /* Flexbox를 사용하여 레이아웃 구성 */
+	flex-direction: column; /* 세로 방향으로 배치 */
+	max-width: 1200px; /* 최대 너비 설정 */
+	margin: 0 auto; /* 중앙 정렬을 위한 자동 마진 */
+	font-size: 0.8em; /* 폰트 크기 설정 */
+}
+
+/* Left section style */
+.footer-left {
+	display: flex; /* Flexbox를 사용하여 레이아웃 구성 */
+	flex-direction: column; /* 세로 방향으로 배치 */
+	align-items: flex-start; /* 왼쪽 정렬 */
+	width: 100%; /* 전체 너비 사용 */
+}
+
+/* Footer address list style */
+.footer-address {
+	list-style-type: none; /* 리스트 스타일 없음 */
+	padding: 0; /* 기본 패딩 제거 */
+	margin-bottom: 15px; /* 주소와 링크 사이의 간격 */
+}
+
+.footer-address li {
+	margin-bottom: 5px; /* 각 주소 항목 사이의 간격 */
+}
+
+/* Footer link list style */
+.footer-links {
+	display: flex; /* Flexbox를 사용하여 레이아웃 구성 */
+	justify-content: space-between; /* 링크 항목 사이의 공간 균등 배분 */
+	list-style-type: none; /* 리스트 스타일 없음 */
+	padding: 0; /* 기본 패딩 제거 */
+	margin: 0; /* 기본 마진 제거 */
+}
+
+.footer-links li {
+	font-style: italic;
+	margin-right: 15px; /* 링크 항목 사이의 간격 */
+}
+
+/* Copyright text style */
+.footer-copy {
+	margin: 20px 0; /* 상하 마진: 20px */
+	text-align: center; /* 가운데 정렬 */
+	font-size: 0.9em; /* 폰트 크기: 0.9em (조금 작게 설정) */
+	color: #6c757d; /* 폰트 색상: 연한 회색 */
+}
+
+/* Style when the screen width is less than 1000px */
+@media ( max-width : 1400px) {
+	.footer-container {
+		flex-direction: column; /* 세로 방향으로 배치 */
+		align-items: center; /* 중앙 정렬 */
+		width: 80%;
+	}
+	.footer-left {
+		width: 100%; /* 전체 너비 사용 */
+	}
+	.footer-address {
+		margin-bottom: 10px; /* 주소와 링크 사이의 간격 감소 */
+	}
+	.footer-links {
+		flex-direction: column; /* 세로 방향으로 배치 */
+		margin-bottom: 0; /* 링크와 주소 사이의 간격 제거 */
+	}
+	.footer-links li {
+		margin: 8px 0; /* 링크 항목 사이의 간격 감소 */
+	}
+}
