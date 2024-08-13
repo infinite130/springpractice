@@ -4,7 +4,7 @@ window.handleKeyPress = function(event) {
         event.preventDefault(); // 기본 동작(예: 폼 제출) 방지
         sendMessage(); // 메시지 전송 함수 호출
     }
-}
+};
 
 // 메시지 입력창에 Enter 키 이벤트 리스너 추가
 document.getElementById('message-input').addEventListener('keydown', handleKeyPress);
@@ -47,18 +47,45 @@ function reduceFont() {
     }
 }
 
+// 페이지 상단으로 부드럽게 스크롤하는 함수
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // 채팅 상담창 활성화 함수
 function chatConsultation() {
-    const chatContainer = document.getElementById('chat-container');
-    const chatBox = document.getElementById('chat-box');
-    chatBox.innerHTML = ''; // 이전 채팅 내용 초기화
+	startChat();
+    let memId = document.getElementById('memId');
     
-    // 기본 메시지 추가
-    const defaultMessage = document.createElement('div');
-    defaultMessage.textContent = '무엇을 도와드릴까요?';
-    chatBox.appendChild(defaultMessage);
+    // 'memId' 요소가 없거나 텍스트가 비어 있는 경우
+    if (!memId || memId.textContent.trim() === '') {
+        alert("로그인 후 이용할 수 있습니다.");
+        return;
+    } else {
+        // 로그인된 경우 채팅 창 활성화
+        const chatContainer = document.getElementById('chat-container');
+        const chatBox = document.getElementById('chat-box');
+        chatBox.innerHTML = ''; // 이전 채팅 내용 초기화
+        chatContainer.classList.remove('hidden'); // 채팅창 표시
+    }
+}
 
-    chatContainer.classList.remove('hidden'); // 채팅창 표시
+// 최소화/최대화 버튼 클릭 시 호출되는 함수
+function minimizeChat() {
+    const chatContainer = document.getElementById('chat-container');
+    const chatHeader = document.getElementById('chat-header');
+
+    if (chatContainer.classList.contains('minimized')) {
+        // 현재 상태가 최소화 상태일 때 최대화
+        chatContainer.classList.remove('minimized');
+        chatContainer.classList.add('expanded');
+        chatHeader.querySelector('button').textContent = '➖'; // 버튼 텍스트를 최소화 아이콘으로 변경
+    } else {
+        // 현재 상태가 최대화 상태일 때 최소화
+        chatContainer.classList.remove('expanded');
+        chatContainer.classList.add('minimized');
+        chatHeader.querySelector('button').textContent = '⬜'; // 버튼 텍스트를 최대화 아이콘으로 변경
+    }
 }
 
 // 채팅창 닫기 요청 함수
@@ -80,14 +107,56 @@ function cancelCloseChat() {
     document.getElementById('close-chat-modal').classList.add('hidden');
 }
 
+// 채팅창 드래그 및 리사이즈 기능 추가
+document.addEventListener('DOMContentLoaded', (event) => {
+    let chatContainer = document.getElementById('chat-container');
+    let chatHeader = document.getElementById('chat-header');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // 채팅창 헤더를 드래그할 때
+    chatHeader.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - chatContainer.offsetLeft;
+        offsetY = e.clientY - chatContainer.offsetTop;
+        chatContainer.style.cursor = 'move';
+    });
+
+    // 드래그 중일 때
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            chatContainer.style.left = e.clientX - offsetX + 'px';
+            chatContainer.style.top = e.clientY - offsetY + 'px';
+        }
+    });
+
+    // 드래그를 멈출 때
+    document.addEventListener('mouseup', (e) => {
+        isDragging = false;
+        chatContainer.style.cursor = 'default';
+    });
+
+    // 채팅창 리사이즈 시 채팅 박스 높이 조정
+    const resizeObserver = new ResizeObserver(() => {
+        const chatBox = document.getElementById('chat-box');
+        const chatInput = document.getElementById('chat-input');
+        const headerHeight = chatHeader.offsetHeight;
+        const inputHeight = chatInput.offsetHeight;
+        const containerHeight = chatContainer.offsetHeight;
+        chatBox.style.height = `${containerHeight - headerHeight - inputHeight}px`;
+    });
+    resizeObserver.observe(chatContainer);
+});
+
 // WebSocket 연결 설정
 let ws;
 
 function startChat() {
-    ws = new WebSocket('ws://192.168.1.114:8080/chat'); // WebSocket 서버 주소 설정
+    ws = new WebSocket('ws://localhost:8080/chat');
 
     ws.onopen = function() {
         console.log('WebSocket 연결이 열렸습니다.');
+        openChatWindow();
     };
 
     ws.onmessage = function(event) {
@@ -114,7 +183,6 @@ function sendMessage() {
             content: message
         });
         ws.send(jsonMessage); // 서버로 JSON 메시지 전송
-        appendMessage(message); // 채팅창에 메시지 추가
         input.value = ''; // 입력란 초기화
     }
 }
@@ -123,20 +191,50 @@ function sendMessage() {
 function appendMessage(message) {
     const chatBox = document.getElementById('chat-box');
     const messageDiv = document.createElement('div');
-    const userName = document.getElementById('memName').textContent.trim(); // 사용자 이름 가져오기
-    // 메시지가 JSON 형식일 경우 처리
+    
+    // 기본 메시지 스타일 적용
+    messageDiv.className = 'message-container';
+
     try {
         const jsonMessage = JSON.parse(message);
-        messageDiv.textContent = `${userName} : ${jsonMessage.content}`;
-    } catch (e) {
-        // JSON 파싱 실패 시
-        messageDiv.textContent = `${userName} : ${message}`;
-    }
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight; // 스크롤을 가장 아래로
-}
 
-// 페이지 로드 시 WebSocket 연결 시작
-document.addEventListener('DOMContentLoaded', (event) => {
-    startChat();
-});
+        // 발신자 정보와 메시지 내용
+        const userId = jsonMessage.userId;
+        const content = jsonMessage.content;
+        const timestamp = jsonMessage.timestamp;
+
+        // 현재 사용자의 ID 가져오기
+        const myUserId = document.getElementById('memId').textContent.trim();
+
+        // 메시지 컨테이너 스타일 결정
+        const isMyMessage = userId === myUserId;
+        messageDiv.classList.add(isMyMessage ? 'my-message-container' : 'other-message-container');
+
+        // 사용자 ID 스타일
+        const userIdDiv = document.createElement('div');
+        userIdDiv.className = 'user-id';
+        userIdDiv.textContent = userId;
+
+        // 메시지 내용을 포함하는 div 생성
+        const messageBox = document.createElement('div');
+        messageBox.className = 'message-box'; // 메시지 내용 스타일 적용
+        messageBox.textContent = content;
+        
+        const timestampDiv = document.createElement('div');
+        timestampDiv.className = 'timestamp';
+        timestampDiv.textContent = new Date(timestamp).toLocaleTimeString();
+
+        // 사용자 ID와 메시지 내용을 포함하는 div 생성
+        messageDiv.appendChild(userIdDiv);
+        messageDiv.appendChild(messageBox);
+        messageDiv.appendChild(timestampDiv);
+
+    } catch (e) {
+        // JSON 파싱 오류 발생 시 처리
+        messageDiv.className = 'message-container other-message-container';
+        messageDiv.textContent = message;
+    }
+
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight; // 스크롤을 가장 아래로 이동
+}
