@@ -7,7 +7,7 @@
 <head>
 <title>수강신청</title>
 <link rel="stylesheet" href="${webappRoot}/resources/css/common/common.css">
-<link rel="stylesheet" href="../resources/css/course/course.css">
+<link rel="stylesheet" href="../resources/css/courseNcommunity/courseNcommunity.css">
 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -17,44 +17,56 @@
 
 	<!-- 해당 페이지의 메인내용을 여기에 작성하세요. -->
 	<main>
-	<h1>수강 신청</h1>
 		<div class="course_container">
 			<jsp:include page="/WEB-INF/views/course/courseMenu.jsp" />
-			<div class="course_boardList_wrap">
+			<div class="course_main_content">
+				<h2>수강 신청</h2>
 				<!-- 게시물 O -->
 				<c:if test="${listCheck != 'empty'}">
-					<table class="course_boardList">
+					<table class="course_table">
 						<thead>
 							<tr>
 								<td>#</td>
 								<td>수강 기간</td>
-								<td>카테고리</td>
+								<td>분류</td>
 								<td>강좌명</td>
 								<td>강사명</td>
-								<td>수업 시간/요일</td>
+								<td>요일 / 시간</td>
 								<td>수강 인원</td>
+								<td>수강 신청</td>
 							</tr>
 						</thead>
 						<c:forEach items="${list}" var="item">
 							<tr>
 								<td><c:out value="${item.courseCode}" /></td>
 								<td>
-
+									<fmt:formatDate value="${item.startDate}" pattern="yy-MM-dd" />
+									~
+									<fmt:formatDate value="${item.endDate}" pattern="yy-MM-dd" />
 								</td>
-								<td><c:out value="${item.ccatCode}" /></td>
+								<td><c:out value="${item.ccatName}" /></td>
 								<td>
 									<a class="move" href="<c:out value='${item.courseCode}'/>"> 
 										<c:out value="${item.courseName}" />
 									</a>
 								</td>
-								<td><c:out value="${item.teaCode}" /></td>
-								<td></td>
+								<td><c:out value="${item.teaName}" /></td>
 								<td>
 									<c:out value="${item.courseDay}"/>
 									<br>
 									<c:out value="${item.startTime}"/>~<c:out value="${item.endTime}"/>
 								</td>
-								<td><c:out value="${item.courseLimit}" /></td>
+								<td>
+									<span>0</span>
+									/
+									<c:out value="${item.courseLimit}"/>
+									명
+								</td>
+								<td>
+									<a class="apply_btn" href="<c:out value='${item.courseCode}'/>">
+        								<button>수강신청</button>
+    								</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -62,13 +74,13 @@
 
 				<!-- 게시물 x -->
 				<c:if test="${listCheck == 'empty'}">
-					<div class="table_empty">작성된 글이 없습니다.</div>
+					<div class="table_empty">개설된 수업이 없습니다.</div>
 				</c:if>
-			</div>
+
 
 			<!-- 검색 영역 -->
 			<div class="search_wrap">
-				<form id="searchForm" action="/community/boardList" method="get">
+				<form id="searchForm" action="/course/boardList" method="get">
 					<div class="search_input">
 						<input type="text" name="keyword"
 							value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
@@ -102,11 +114,13 @@
 					</c:if>
 				</ul>
 			</div>
-			<form id="moveForm" action="/admin/authorManage" method="get">
+			
+			<form id="moveForm" action="/course/boardList" method="get">
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 				<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
 			</form>
+		</div>
 		</div>
 	</main>
 
@@ -125,6 +139,45 @@
 			}
 			alert("수업'"+ eResult +"'을 등록하였습니다.");
 		}
+	});
+	
+	let searchForm = $('#searchForm');
+	$("#searchForm button").on("click", function(e){
+		e.preventDefault();
+		/* 검색 키워드 유효성 검사 */
+		if(!searchForm.find("input[name='keyword']").val()){
+			alert("키워드를 입력하십시오");
+			return false;
+		}
+		searchForm.find("input[name='pageNum']").val("1");
+		searchForm.submit();
+	});
+	
+	let moveForm = $('#moveForm');
+	$(".pageMaker_btn a").on("click", function(e){		
+		e.preventDefault();
+		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.submit();
+	});
+	
+	$(".move").on("click", function(e){
+		e.preventDefault();
+		
+		moveForm.append("<input type='hidden' name='courseCode' value='"+$(this).attr("href") + "'>");
+		moveForm.attr("action", "/course/detail");
+		moveForm.submit();	
+	});
+	
+	$('.apply_btn').on("click",function(e){	
+		e.preventDefault();
+		
+		var courseCode = $(this).attr("href");
+
+	    // 팝업 옵션
+	    var popUrl = "/course/apply?courseCode=" + courseCode;
+	    var popOption = "width=650, height=550, top=300, left=300, scrollbars=yes";
+		
+		window.open(popUrl,"수강신청",popOption);
 	});
 	</script>
 </body>
