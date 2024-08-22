@@ -16,7 +16,7 @@
   	<select id="getBoardList" resultType="com.sml.model.CommunityVO">
   		<![CDATA[
   			SELECT * FROM (
-  				SELECT /*+INDEX_DESC(COMMUNITY SYS_C008714) */
+  				SELECT 
   					ROWNUM AS rn, c.COMM_CODE AS commCode, c.COMM_TITLE AS commTitle, m.MEM_NAME AS commWriter, c.COMM_ENROLL_DATE AS enrollDate, c.COMM_COUNT AS commCount
   				FROM COMMUNITY c
   				JOIN TB_MEMBER m
@@ -58,7 +58,7 @@
   			SET
   				COMM_TITLE = #{commTitle, jdbcType=VARCHAR},
   				COMM_CONTENT = #{commContent, jdbcType=CLOB},
-  				COMM_MODIFY_DATE AS modifyDate = SYSDATE
+  				COMM_MODIFY_DATE = SYSDATE
   			WHERE 
   				COMM_CODE = #{commCode, jdbcType=INTEGER}
   	</update>
@@ -71,5 +71,13 @@
   			WHERE 
   				COMM_CODE = #{commCode}
   	</update>
+  	
+  	<select id="getCommunityCode" resultType="com.sml.model.CommunityVO">
+  		SELECT 
+  			COMM_CODE AS commCode,
+  			COMM_TITLE AS commTitle
+  		 FROM COMMUNITY
+  		 WHERE COMM_CODE = #{commCode}
+  	</select>
   	
   </mapper>

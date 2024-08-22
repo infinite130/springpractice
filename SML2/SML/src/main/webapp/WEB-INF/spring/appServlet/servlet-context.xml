@@ -34,16 +34,18 @@
             <beans:bean id="loginIntreceptor" class="com.sml.interceptor.LoginInterceptor"></beans:bean>
         </interceptor>
         
-<!--         <interceptor>
+        <interceptor>
             <mapping path="/course/manage/**"></mapping>
             <beans:bean id="AdminInterceptor" class="com.sml.interceptor.AdminInterceptor"></beans:bean>
-        </interceptor> -->
+        </interceptor>
         
         <interceptor>
-        	<mapping path="/course/modify"></mapping>
+        	<mapping path="/community/modify"></mapping>
         	<beans:bean id="OnlyLoginInterceptor" class="com.sml.interceptor.OnlyLoginInterceptor"></beans:bean>
         </interceptor>
     </interceptors>
-	
+    
+	<!-- 업로드 관련 빈 -->
+   	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 	
 </beans:beans>
